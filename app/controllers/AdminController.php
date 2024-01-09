@@ -12,6 +12,7 @@ class AdminController extends Controller{
     }
 
     public function dash() {
+        
         // $stylesArray = $this->styleModel->GetAllStyles();
     
         // // Extract style names
