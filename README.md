@@ -7,9 +7,6 @@ This project aims to create an efficient content management system and a user-fr
 - [Project Context](#project-context)
 - [Features](#features)
 - [Installation](#installation)
-- [Usage](#usage)
-- [Contributing](#contributing)
-- [License](#license)
 
 ## Project Context
 
