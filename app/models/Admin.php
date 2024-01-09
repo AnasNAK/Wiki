@@ -9,7 +9,7 @@ private $db;
 
     public function FindAdmin($email, $username)
     {
-        $this->db->query('SELECT * FROM user WHERE username= :username OR email = :email AND role_type = 2 ');
+        $this->db->query('SELECT * FROM user WHERE username= :username OR email = :email AND role_type = 1 ');
         $this->db->bind(':username', $username);
         $this->db->bind(':email', $email);
 

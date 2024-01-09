@@ -20,7 +20,7 @@ class Pages extends Controller
     {
 
     }
-    public function signup()
+    public function register()
     {
         $this->view('Pages/signup');
 
@@ -43,6 +43,11 @@ class Pages extends Controller
     {
         $this->view('pages/reset-password');
     }
+    public function wiki()
+    {
+        $this->view('pages/wiki');
+    }
+
 }
 
 

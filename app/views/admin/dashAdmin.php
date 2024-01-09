@@ -1,11 +1,4 @@
-<?php 
 
-if($_SESSION['role'] != 2){
-    header("location: ../pages/index.php");
-   }
-
-
-?>
 
 
 
@@ -15,9 +8,9 @@ if($_SESSION['role'] != 2){
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?php echo SITENAME ; ?></title>
+    <title><?= SITENAME ; ?></title>
     <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
-    <link rel="stylesheet" href="<?php echo URLROOT ?>/css/admin.css">
+    <link rel="stylesheet" href="<?= URLROOT ?>/css/admin.css">
 </head>
 
 <body>
@@ -42,7 +35,7 @@ if($_SESSION['role'] != 2){
         <ul class="side-menu">
 
             <li>
-                <a href="<?php echo URLROOT ?>/AdminController/logout " class="logout">
+                <a href="<?= URLROOT ?>/AdminController/logout " class="logout">
                     <i class='bx bxs-log-out-circle'></i>
 
                     <span class="text">Logout</span>

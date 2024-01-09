@@ -1,21 +1,68 @@
 <?php
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
-
-function generate_code()
-{
-    return bin2hex(openssl_random_pseudo_bytes(15));
-}
-
 class User
 {
-
     private $db;
+    private $username;
+    private $email;
+    private $password;
+    private $userId;
+    private $roleType;
 
     public function __construct()
     {
         $this->db = Database::getInstance();
     }
+
+    public function setRoleType($roleType){
+        $this->roleType = $roleType;
+    }
+    public function getRoleType(){
+        return $this->roleType;
+    }
+
+   
+       public function setUsername($username) {
+        $this->username = $username;
+    }
+
+
+    public function getUsername() {
+        return $this->username;
+    }
+
+
+    public function setEmail($email) {
+        $this->email = $email;
+    }
+
+
+    public function getEmail() {
+        return $this->email;
+    }
+
+ 
+    public function setPassword($password) {
+        $this->password = $password;
+    }
+
+ 
+    public function getPassword() {
+        return $this->password;
+    }
+
+
+    public function setUserId($userId) {
+        $this->userId = $userId;
+    }
+
+
+    public function getUserId() {
+        return $this->userId;
+    }
+
+
+
+
 
     //Find user by email or username
     public function findUserByEmailOrUsername($email, $username)
@@ -36,18 +83,18 @@ class User
 
     public function register($data)
     {
-        $verification_code = generate_code();
+   
 
-        $this->db->query('INSERT INTO users (username, email,  password, role_type,verification_code) 
-        VALUES (:name, :email, :password, :role_type, :verification_code)');
+        $this->db->query('INSERT INTO users (username, email,  password, role_type) 
+        VALUES (:name, :email, :password, 0)');
 
 
         //Bind values
         $this->db->bind(':name', $data['username']);
         $this->db->bind(':email', $data['email']);
         $this->db->bind(':password', $data['password']);
-        $this->db->bind(':role_type', $data['role_type']);
-        $this->db->bind(':verification_code', $verification_code);
+   
+
 
 
         if ($this->db->execute()) {

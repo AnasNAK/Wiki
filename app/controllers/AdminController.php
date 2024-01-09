@@ -8,24 +8,23 @@ class AdminController extends Controller{
     public function __construct()
     {
         $this->adminModel = $this->model('Admin');
-        $this->styleModel = $this->model('Style');
         
     }
 
     public function dash() {
-        $stylesArray = $this->styleModel->GetAllStyles();
+        // $stylesArray = $this->styleModel->GetAllStyles();
     
-        // Extract style names
-        $styleNames = [];
-        foreach ($stylesArray as $style) {
-            $styleNames[] = $style->getStyleName();
-        }
+        // // Extract style names
+        // $styleNames = [];
+        // foreach ($stylesArray as $style) {
+        //     $styleNames[] = $style->getStyleName();
+        // }
     
-        // Prepare data for the view
-        $data = ['styleNames' => $styleNames];
+        // // Prepare data for the view
+        // $data = ['styleNames' => $styleNames];
     
         // Pass data to the view
-        $this->view('admin/dashAdmin', $data);
+        $this->view('admin/dashAdmin');
     }
     
 public function loginform (){

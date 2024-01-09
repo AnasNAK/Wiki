@@ -1,5 +1,5 @@
 <?php
-use PHPMailer\PHPMailer\PHPMailer;
+
 
 class Users extends Controller
 {
@@ -15,20 +15,22 @@ class Users extends Controller
     {
         if (!filter_var($usersEmail, FILTER_VALIDATE_EMAIL)) {
             flash('reset', 'Invalid email format');
-            redirect('../views/pages/reset-password.php'); // Redirect to your reset password page
+            redirect('../views/pages/reset-password.php'); 
         }
 
         // Call the forgot_password function from the model
         if ($this->userModel->forgot_password($usersEmail)) {
             flash('reset', 'Password reset email sent successfully');
-            redirect('../views/pages/reset-password.php'); // Redirect to your reset password page
+            redirect('../views/pages/reset-password.php'); 
         } else {
             flash('reset', 'Error sending password reset email');
-            redirect('../views/pages/reset-password.php'); // Redirect to your reset password page
+            redirect('../views/pages/reset-password.php'); 
         }
     }
     public function register()
     {
+        if($_SERVER['REQUEST_METHOD'] == 'POST'){
+            
 
         //Sanitize POST data
         $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
@@ -83,6 +85,7 @@ class Users extends Controller
         } else {
             die("Something went wrong");
         }
+        }
     }
     public function get_songs($artist): array
     {
@@ -101,76 +104,43 @@ class Users extends Controller
 
 
     }
-    function forgot_password($email)
-    {
-
-
-        $mail = new PHPMailer(true);
-
-        try {
-            //Server settings
-            $mail->isSMTP();                                            //Send using SMTP
-            $mail->Host = 'smtp.gmail.com';                     //Set the SMTP server to send through
-            $mail->SMTPAuth = true;                                   //Enable SMTP authentication
-            $mail->Username = 'haritiasmae@gmail.com';                     //SMTP username
-            $mail->Password = 'slt';                               //SMTP password
-            $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
-            $mail->Port = 587;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
-
-            //Recipients
-            $mail->setFrom('from@example.com', 'Reset your password');
-            $mail->addAddress($email);     //Add a recipient
-
-
-            //Attachments
-            $mail->addAttachment('/var/tmp/file.tar.gz');         //Add attachments
-            $mail->addAttachment('/tmp/image.jpg', 'new.jpg');    //Optional name
-
-            //Content
-            $mail->isHTML(true);                                  //Set email format to HTML
-            $mail->Subject = 'Here is the subject';
-            $mail->Body = 'This is the HTML message body <b>in bold!</b>';
-            $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
-
-            $mail->send();
-            echo 'Message has been sent';
-        } catch (Exception $e) {
-            echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
-        }
-    }
+    
     public function login()
     {
+    if ($_SERVER['REQUEST_METHOD'] == 'POST'){
+    //Sanitize POST data
+    $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_SPECIAL_CHARS);
 
-        //Sanitize POST data
-        $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_SPECIAL_CHARS);
+    //Init data
+    $data = [
+        'name/email' => trim($_POST['name/email']),
+        'password' => trim($_POST['password'])
+    ];
 
-        //Init data
-        $data = [
-            'name/email' => trim($_POST['name/email']),
-            'password' => trim($_POST['password'])
-        ];
+    if (empty($data['name/email']) || empty($data['password'])) {
+        flash("login", "Please fill out all inputs");
+        $this->view('/Pages/login');
+        exit();
+    }
 
-        if (empty($data['name/email']) || empty($data['password'])) {
-            flash("login", "Please fill out all inputs");
-            $this->view('/Pages/login');
-            exit();
-        }
-
-        //Check for user/email
-        if ($this->userModel->findUserByEmailOrUsername($data['name/email'], $data['name/email'])) {
-            //User Found
-            $loggedInUser = $this->userModel->login($data['name/email'], $data['password']);
-            if ($loggedInUser) {
-                //Create session
-                $this->createUserSession($loggedInUser);
-            } else {
-                flash("login", "Password Incorrect");
-                $this->view('/Pages/login');
-            }
+    //Check for user/email
+    if ($this->userModel->findUserByEmailOrUsername($data['name/email'], $data['name/email'])) {
+        //User Found
+        $loggedInUser = $this->userModel->login($data['name/email'], $data['password']);
+        if ($loggedInUser) {
+            //Create session
+            $this->createUserSession($loggedInUser);
         } else {
-            flash("login", "No user found");
+            flash("login", "Password Incorrect");
             $this->view('/Pages/login');
         }
+    } else {
+        flash("login", "No user found");
+        $this->view('/Pages/login');
+    }
+
+}
+        
     }
 
     public function createUserSession($user)
