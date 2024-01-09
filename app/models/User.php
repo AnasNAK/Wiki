@@ -63,7 +63,6 @@ class User
 
 
 
-
     //Find user by email or username
     public function findUserByEmailOrUsername($email, $username)
     {
