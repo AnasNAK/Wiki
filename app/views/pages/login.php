@@ -13,8 +13,11 @@
     </title>
 </head>
 
-<body class="" style="background: rgb(0,0,0);
-background: radial-gradient(circle, rgba(0,0,0,1) 0%, rgba(250,246,246,1) 45%, rgba(102,102,102,1) 100%);">
+<body class="" style="background: #304352;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #d7d2cc, #304352);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #d7d2cc, #304352); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+overflow-x:hidden;">
 
     <div class="min-h-screen py-6 flex flex-col justify-center sm:py-12">
         <div class="relative py-3 sm:max-w-xl sm:mx-auto">
@@ -25,11 +28,12 @@ background: radial-gradient(circle, rgba(0,0,0,1) 0%, rgba(250,246,246,1) 45%, r
                     <div>
                         <h1 class="text-2xl font-semibold text-gray-800">Welcome Back! You Can Login Here</h1>
                     </div>
+                    <?php flash('login') ?>
                     <form action="<?php echo URLROOT ?>/Users/login" method="post">
                         <div class="divide-y divide-gray-400">
                             <div class="py-8 text-base leading-6 space-y-4 text-gray-700 sm:text-lg sm:leading-7">
                                 <div class="relative">
-                                    <input autocomplete="off" id="email" name="email" type="text"
+                                    <input autocomplete="off" id="email" name="name/email" type="text"
                                         class="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-black focus:outline-none focus:border-rose-600"
                                         placeholder="Email address" value="">
                                     <label for="email"
