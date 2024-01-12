@@ -1,7 +1,3 @@
-
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -11,6 +7,12 @@
     <title><?= SITENAME ; ?></title>
     <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="<?= URLROOT ?>/css/admin.css">
+    <link href="https://unpkg.com/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+
+
+
 </head>
 
 <body>
@@ -19,8 +21,8 @@
     <!-- SIDEBAR -->
     <section id="sidebar">
         <a href="#" class="brand">
-            <i class='bx bxs-smile'></i>
-            <span class="text">Paroly</span>
+            <img class=" ml-4 w-10" src="<?= URLROOT ?>/img/logo.png" alt="">
+
         </a>
         <ul class="side-menu top">
             <li class="active">
@@ -35,6 +37,16 @@
         <ul class="side-menu">
 
             <li>
+                <a href="<?= URLROOT ?>" class="logout">
+                    <i class='bx bxs-log-out-circle'></i>
+
+                    <span class="text">Back To Home</span>
+                </a>
+            </li>
+        </ul>
+        <ul class="side-menu">
+
+            <li>
                 <a href="<?= URLROOT ?>/AdminController/logout " class="logout">
                     <i class='bx bxs-log-out-circle'></i>
 
@@ -42,6 +54,7 @@
                 </a>
             </li>
         </ul>
+
     </section>
     <!-- SIDEBAR -->
 
@@ -53,21 +66,8 @@
         <nav>
             <i class='bx bx-menu'></i>
             <a href="#" class="nav-link"><?php echo $_SESSION['username'] ?></a>
-            <form action="#">
-                <div class="form-input">
-                    <input type="search" placeholder="Search...">
-                    <button type="submit" class="search-btn"><i class='bx bx-search'></i></button>
-                </div>
-            </form>
-            <input type="checkbox" id="switch-mode" hidden>
-            <label for="switch-mode" class="switch-mode"></label>
-            <a href="#" class="notification">
-                <i class='bx bxs-bell'></i>
-                <span class="num">8</span>
-            </a>
-            <a href="#" class="profile">
-                <img src="img/people.png">
-            </a>
+
+
         </nav>
         <!-- NAVBAR -->
 
@@ -75,7 +75,7 @@
         <main>
             <div class="head-title">
                 <div class="left">
-                    <h1>Where your music
+                    <h1>Where your wiki
                         is everything</h1>
                     <ul class="breadcrumb">
                         <li>
@@ -86,10 +86,53 @@
                 </div>
             </div>
 
+
+            <div class="flex gap-3 ">
+                <div
+                    class="flex bg-gray-300 justify-center text-center rounded-lg text-xl hover:bg-gray-700 transition duration-300 ease-in-out  hover:shadow-2xl hover:text-white  w-1/4">
+
+
+
+                    <span class="font-bold">
+                        <h3>Tags</h3>
+                        <p><?= $data['tagsData'][0]['counter'] ; ?></p>
+                    </span>
+                </div>
+                <div
+                    class="flex bg-gray-300 justify-center text-center rounded-lg text-xl hover:bg-gray-700 transition duration-300 ease-in-out  hover:shadow-2xl hover:text-white w-1/4">
+
+
+
+                    <span class="font-bold">
+                        <h3>Categories</h3>
+                        <p><?= $data['countcats'] ; ?></p>
+                    </span>
+                </div>
+                <div
+                    class="flex bg-gray-300 justify-center text-center rounded-lg text-xl hover:bg-gray-700 transition duration-300 ease-in-out  hover:shadow-2xl hover:text-white w-1/4">
+
+
+
+                    <span class="font-bold">
+                        <h3>Wikis</h3>
+                        <p>66</p>
+                    </span>
+                </div>
+                <div
+                    class="flex bg-gray-300 justify-center text-center rounded-lg text-xl transition duration-300 ease-in-out  hover:shadow-2xl hover:bg-gray-700 hover:text-white w-1/4">
+
+
+
+                    <span class="font-bold">
+                        <h3>Users</h3>
+                        <p><?= $data['countUsers'] ; ?></p>
+                    </span>
+                </div>
+            </div>
             <ul class="box-info">
-                <li>
-                    <a href="<?= URLROOT ?>/AdminController/styleForm " style="display:flex; justify-content:center; align-items:center;">
-                        <i class='bx'>
+                <li id="addTag" class="cursor-pointer">
+                    <a href="" style="display:flex; justify-content:center; align-items:center;">
+                        <i class='bx  '>
                             <svg xmlns="http://www.w3.org/2000/svg" width="30px" height="30px" viewBox="0 0 24 24">
 
                                 <title />
@@ -100,11 +143,11 @@
 
                                         <g>
 
-                                            <line fill="none" stroke="#000000" stroke-linecap="round"
+                                            <line fill="none" stroke="#ffffff" stroke-linecap="round"
                                                 stroke-linejoin="round" stroke-width="2" x1="12" x2="12" y1="19"
                                                 y2="5" />
 
-                                            <line fill="none" stroke="#000000" stroke-linecap="round"
+                                            <line fill="none" stroke="#ffffff" stroke-linecap="round"
                                                 stroke-linejoin="round" stroke-width="2" x1="5" x2="19" y1="12"
                                                 y2="12" />
 
@@ -118,65 +161,83 @@
 
                         <span class="text">
 
-                            <h3>Add style</h3>
+                            <h3>Add tag</h3>
                         </span>
                     </a>
                 </li>
-                <li>
-                <a href="<?= URLROOT ?>/AdminController/PlaylistForm " style="display:flex; justify-content:center; align-items:center;">
-                 <i class='bx'><svg xmlns="http://www.w3.org/2000/svg" width="30px" height="30px"
-                            viewBox="0 0 24 24">
+                <li id="addCat">
+                    <a href="" style="display:flex; justify-content:center; align-items:center;">
+                        <i class='bx'><svg xmlns="http://www.w3.org/2000/svg" width="30px" height="30px"
+                                viewBox="0 0 24 24">
 
-                            <title />
+                                <title />
 
-                            <g id="Complete">
+                                <g id="Complete">
 
-                                <g data-name="add" id="add-2">
+                                    <g data-name="add" id="add-2">
 
-                                    <g>
+                                        <g>
 
-                                        <line fill="none" stroke="#000000" stroke-linecap="round"
-                                            stroke-linejoin="round" stroke-width="2" x1="12" x2="12" y1="19" y2="5" />
+                                            <line fill="none" stroke="#ffffff" stroke-linecap="round"
+                                                stroke-linejoin="round" stroke-width="2" x1="12" x2="12" y1="19"
+                                                y2="5" />
 
-                                        <line fill="none" stroke="#000000" stroke-linecap="round"
-                                            stroke-linejoin="round" stroke-width="2" x1="5" x2="19" y1="12" y2="12" />
+                                            <line fill="none" stroke="#ffffff" stroke-linecap="round"
+                                                stroke-linejoin="round" stroke-width="2" x1="5" x2="19" y1="12"
+                                                y2="12" />
+
+                                        </g>
 
                                     </g>
 
                                 </g>
+                            </svg></i></a>
 
-                            </g>
-                        </svg></i></a>
-                   
 
                     <span class="text">
-                        <h3>Add playlist</h3>
+                        <h3>Add Categorie</h3>
                     </span>
                 </li>
+
+
             </ul>
 
 
             <div class="table-data">
                 <div class="order">
                     <div class="head">
-                        <h3>Styles</h3>
+                        <h3>Tags</h3>
                     </div>
                     <table>
                         <thead>
                             <tr>
-                                <th>Style Name</th>
+                                <th>tag Name</th>
 
                             </tr>
                         </thead>
                         <tbody>
-                            <?php foreach ($data['styleNames'] as $styleName): ?>
+                            <?php foreach ($data['tagsData'] as $tagData): 
+                                                  ?>
                             <tr>
                                 <td>
-                                    <p><?= $styleName; ?></p>
+                                    <p><?= $tagData['name']; ?></p>
+                                </td>
+                                <td>
+                                    <button class="update-btn" data-tag-id="<?= $tagData['id']; ?>"
+                                        data-tag-name="<?= $tagData['name']; ?>">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                </td>
+                                <td>
+
+                                    <button class="delete-btn" data-id="<?= $tagData['id']; ?>">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </button>
                                 </td>
                             </tr>
                             <?php endforeach; ?>
                         </tbody>
+
 
                     </table>
                 </div>
@@ -186,57 +247,40 @@
                 <div class="table-data">
                     <div class="order">
                         <div class="head">
-                            <h3>Recent Albums</h3>
+                            <h3>Categories</h3>
                         </div>
                         <table>
                             <thead>
                                 <tr>
-                                    <th>Album</th>
+                                    <th>Categorie</th>
                                     <th>date of addition</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>
-                                        <img src="img/people.png">
-                                        <p>John Doe</p>
-                                    </td>
-                                    <td>01-10-2021</td>
+                            <?php foreach ($data['catsData'] as $catData): 
+                                                  ?>
+                            <tr>
+                                <td>
+                                    <p><?= $catData['name']; ?></p>
+                                </td>
+                                <td>
+                                    <p><?= $catData['date']; ?></p>
+                                </td>
+                                <td>
+                                    <button class="update-btn-cat" data-cat-id="<?= $catData['id']; ?>"
+                                        data-cat-name="<?= $catData['name']; ?>">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                </td>
+                                <td>
 
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <img src="img/people.png">
-                                        <p>John Doe</p>
-                                    </td>
-                                    <td>01-10-2021</td>
-
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <img src="img/people.png">
-                                        <p>John Doe</p>
-                                    </td>
-                                    <td>01-10-2021</td>
-
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <img src="img/people.png">
-                                        <p>John Doe</p>
-                                    </td>
-                                    <td>01-10-2021</td>
-
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <img src="img/people.png">
-                                        <p>John Doe</p>
-                                    </td>
-                                    <td>01-10-2021</td>
-
-                                </tr>
-                            </tbody>
+                                    <button class="delete-btn-cat" data-cat-id="<?= $catData['id']; ?>">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <?php endforeach; ?>
+                        </tbody>
                         </table>
                     </div>
 
@@ -244,8 +288,14 @@
 
             </div>
         </main>
-        <!-- MAIN -->
     </section>
-    <!-- CONTENT -->
+    <?php
+
+        echo '<script>';
+        echo 'const urlRoot = ' . json_encode(URLROOT) . ';';
+        echo '</script>';
+?>
     <script src="<?php echo URLROOT;  ?> /js/admin.js"></script>
+    <script src="<?php echo URLROOT ?>/js/dashAdmin.js "></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <?php require APPROOT.'/views/includes/footer.php'; ?>
