@@ -3,29 +3,71 @@ class AdminController extends Controller{
 
   
     private $adminModel ;
-    private $styleModel ;
+    private $tagModel ;
+    private $userModel ;
+    private $catModel ;
+
 
     public function __construct()
     {
         $this->adminModel = $this->model('Admin');
+        $this->tagModel = $this->model('Tag');
+        $this->userModel = $this->model('User');
+        $this->catModel = $this->model('Categorie');
+
         
     }
 
     public function dash() {
+
         
-        // $stylesArray = $this->styleModel->GetAllStyles();
-    
-        // // Extract style names
-        // $styleNames = [];
-        // foreach ($stylesArray as $style) {
-        //     $styleNames[] = $style->getStyleName();
-        // }
-    
-        // // Prepare data for the view
-        // $data = ['styleNames' => $styleNames];
+    $tagsArray = $this->tagModel->GetAllTags();
+    $countTag = $this->tagModel->countTags();
+    $countTag1= $countTag->tagCount;
+
+    $catArray = $this->catModel->GetAllCategories();
+    $countcat = $this->catModel->countCategories();
+    $countcat1= $countcat->catCount;
+
+    $countUser = $this->userModel->countUsers();
+    $countUser1= $countUser->countusers;
+
+
+
+
+
+$catsData = [];
+foreach ($catArray as $cat) {
+    $catsData[] = [
+
+        'name' => $cat->getName(),
+        'date' => $cat->getdate(),
+        'id' => $cat->getId(),
+        
+    ];
+}
+
+$tagsData = [];
+foreach ($tagsArray as $tag) {
+    $tagsData[] = [
+
+        'counter' =>$countTag1,
+        'name' => $tag->getName(),
+        'id' => $tag->getId(),
+        
+    ];
+}
+
+$data = [
+    'tagsData' => $tagsData,
+    'catsData' => $catsData,
+    'countUsers' => $countUser1,
+    'countcats' => $countcat1,
+
+];
     
         // Pass data to the view
-        $this->view('admin/dashAdmin');
+        $this->view('admin/dashAdmin',$data);
     }
     
 public function loginform (){
@@ -33,17 +75,7 @@ public function loginform (){
     $this->view('/admin/login');
 
 } 
-public function styleForm(){
 
-   $this->view('/admin/addstyle');
-
-}
-public function PlaylistForm(){
-        $data =[];
-        
-   $this->view('/admin/addPlaylist');
-
-}
 public function createUserSession($user)
 {
     $_SESSION['role'] = $user->role_type;
@@ -100,6 +132,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
         session_destroy();
         $this->view('/Pages/index');
     }
+
+
+
+
+   
 
 
 
