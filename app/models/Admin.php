@@ -36,14 +36,7 @@ private $db;
        } else {
            return false;
        }
-   }
-
-
-public function AddStyle($data){
-
-
-}
- 
+   } 
 
 
 
